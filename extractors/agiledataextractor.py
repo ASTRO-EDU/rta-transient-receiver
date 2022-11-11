@@ -1,4 +1,5 @@
 from templatedataextractor import TemplateDataExtractor
+from utilis.instrumentid import InstrumentId
 from utilis.voeventdata import Voeventdata
 from astropy.coordinates import SkyCoord
 from astropy import units as u
@@ -16,7 +17,7 @@ class AgileDataExtractor(TemplateDataExtractor):
         return 1
     
     def get_instrumentID_and_name(self, voevent) -> tuple:
-            return 5, "AGILE_MCAL"
+            return InstrumentId.AGILE_MCAL.value, "AGILE_MCAL"
 
     def get_triggerID(self, voevent):
         top_params = vp.get_toplevel_params(voevent)

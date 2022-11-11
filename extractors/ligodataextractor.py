@@ -1,4 +1,5 @@
 from templatedataextractor import TemplateDataExtractor
+from utilis.instrumentid import InstrumentId
 from utilis.voeventdata import Voeventdata
 from ligo.skymap.postprocess.contour import contour as ligo_contour
 from ligo.skymap.io.fits import read_sky_map
@@ -25,35 +26,11 @@ class LigoDataExtractor(TemplateDataExtractor):
 
     def get_instrumentID_and_name(self, voevent) -> tuple:
         packet_type = int(voevent.What.Param[0].attrib["value"])
-        if packet_type in [53,54,55]: # INTEGRAL FROM GCN
-            return 23, "INTEGRAL"
-        elif packet_type == 97: #SWIFT 
-            return 3, "SWIFT"
-        elif packet_type == 111:  #FERMI_GBM 
-            return 1, "FERMI_GBM"
-        elif packet_type in [125,128]: #FERMI_LAT 
-            return 2, "FERMI_LAT"
-        elif packet_type == 105: #AGILE_MCAL FROM GCN
-            return 5, "AGILE_MCAL"
-        elif packet_type in [150, 151, 152, 163]: #LIGO and LIGO_TEST TBD
+        if packet_type in [150, 151, 152, 163]: #LIGO and LIGO_TEST TBD
             if  "test" in voevent.attrib['role']:
-                return 19, "LIGO_TEST"
+                return InstrumentId.LIGO_TEST.value, "LIGO_TEST"
             if  "observation" in voevent.attrib['role']:
-                return 7, "LIGO"
-        elif packet_type == 158: #ICECUBE_HESE
-            return 8, "ICECUBE_HESE"
-        elif packet_type == 169: #ICECUBE_EHE
-            return 10, "ICECUBE_EHE"
-        elif packet_type == 173: #ICECUBE_ASTROTRACK_GOLD
-            return 21, "ICECUBE_ASTROTRACK_GOLD"
-        elif packet_type == 174: #ICECUBE_ASTROTRACK_BRONZE
-            return 22, "ICECUBE_ASTROTRACK_BRONZE"
-        elif packet_type == 59: #KONUS
-            return 25, "KONUS"
-        elif packet_type == 134: #MAXI_UNKNOWN
-            return 26, "MAXI_UNKNOWN"
-        elif packet_type == 135: #MAXI_KNOWN
-            return 27, "MAXI_KNOWN"
+                return InstrumentId.LIGO.value, "LIGO"
         else:
             raise Exception(f"Voevent with packet type {packet_type} not supported")
 

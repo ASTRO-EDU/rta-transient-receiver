@@ -1,4 +1,5 @@
 from comet.plugins.extractors.templatedataextractor import TemplateDataExtractor
+from utilis.instrumentid import InstrumentId
 from utilis.voeventdata import Voeventdata
 from astropy.coordinates import SkyCoord
 from astropy import units as u
@@ -16,7 +17,7 @@ class IntegralDataExtractor(TemplateDataExtractor):
             return 1
 
         def get_instrumentID_and_name(self, voevent) -> tuple:
-            return 23, "INTEGRAL"
+            return InstrumentId.INTEGRAL.value, "INTEGRAL"
 
         def get_triggerID(self, voevent):
             top_params = vp.get_toplevel_params(voevent)

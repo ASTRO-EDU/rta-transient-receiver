@@ -1,4 +1,5 @@
 from templatedataextractor import TemplateDataExtractor
+from utilis.instrumentid import InstrumentId
 from utilis.voeventdata import Voeventdata
 from astropy.coordinates import SkyCoord
 from astropy import units as u
@@ -15,7 +16,7 @@ class ChimeDataExtractor(TemplateDataExtractor):
         return 0
 
     def get_instrumentID_and_name(self, voevent):
-        return 1, "CHIME"
+        return InstrumentId.CHIME.value, "CHIME"
 
     def get_triggerID(self, voevent):
         grouped_params = vp.get_grouped_params(voevent)
