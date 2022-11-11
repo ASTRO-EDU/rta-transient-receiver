@@ -18,18 +18,16 @@ class EmailNotifier(object):
         if voeventdata.packet_type in self.packet_with_email_notification or voeventdata.is_ste: #it will send an email for GW, Neutrino event or STE events
             subject = f'Notice alert for {voeventdata.name}'
             body = f'The platform received a notice for the {voeventdata.name} event at {voeventdata.UTC} for triggerID {voeventdata.trigger_id}'
+            if self.is_important(voeventdata):
+                subject = self.important_email_subject + " " + subject
             self.mail.send_email(self.to, subject, body)
         
         #check if there are correlated instruments and send an email if so
         if result_row:
             subject = f'Correlations for {voeventdata.name}'
             body = f'The platform received a notice for the {voeventdata.name} at {voeventdata.UTC} for triggerID {voeventdata.trigger_id} with the following correlated events: {str(result_row)}'
-
-        if self.is_important(voeventdata):
-            subject = self.important_email_subject + " " + subject
-
-        self.mail.send_email(self.to, subject, body)
-
+            self.mail.send_email(self.to, subject, body)
+    
     def is_important(self, voeventdata) -> bool:
         return False
 
@@ -38,14 +36,14 @@ class Mail():
     def __init__(self, gmail_user, gmail_password) -> None:
         self.gmail_user = gmail_user
         self.gmail_password = gmail_password
-
+    
     def send_email(self, to, subject, body):
         msg = EmailMessage()
         msg.set_content(body)
         msg['Subject'] = subject
         msg['From'] = self.gmail_user
         msg['To'] = ', '.join(to)
-
+    
         try:
             smtp_server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             smtp_server.ehlo()
