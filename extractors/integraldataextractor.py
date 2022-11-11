@@ -1,5 +1,5 @@
 from comet.plugins.extractors.templatedataextractor import TemplateDataExtractor
-from voevent_data.voeventdata import Voeventdata
+from utilis.voeventdata import Voeventdata
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 import voeventparse as vp

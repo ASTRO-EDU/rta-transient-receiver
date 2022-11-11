@@ -1,5 +1,5 @@
 from templatedataextractor import TemplateDataExtractor
-from voevent_data.voeventdata import Voeventdata
+from utilis.voeventdata import Voeventdata
 from ligo.skymap.postprocess.contour import contour as ligo_contour
 from ligo.skymap.io.fits import read_sky_map
 from astropy.coordinates import SkyCoord

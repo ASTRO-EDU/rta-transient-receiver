@@ -1,4 +1,4 @@
-from voevent_data.voeventdata import Voeventdata
+from utilis.voeventdata import Voeventdata
 from astropy.time import Time
 import voeventparse as vp
 import numpy as np
