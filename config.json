@@ -10,5 +10,6 @@
     "packet_with_email_notification": ["150", "151", "152", "163", "158", "169", "173", "174"],
     "sender_email": "sender email address",
     "sender_email_password": "",
-    "email_recivers" : ["receiver email here"]
+    "email_recivers" : ["receiver email here"],
+    "important_email_subject" : ["IMPORTAT EVENT: "]
 }
