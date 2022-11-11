@@ -1,10 +1,19 @@
 from test_voevents import DUMMY_VOEVENT_GCN, DUMMY_VOEVENT_INTEGRAL, DUMMY_VOEVENT_CHIME, DUMMY_VOEVENT_LIGO, DUMMY_VOEVENT_LIGO_INITIAL, DUMMY_VOEVENT_LIGO_PRELIMINARY, DUMMY_VOEVENT_GCN_FERMI, DUMMY_VOEVENT_GCN_MAXI, DUMMY_VOEVENT_AGILE
 import voeventparse as vp
-from comet.plugins.extractors.gcndataextractor import GncDataExtractor
-from comet.plugins.extractors.chimedataextractor import ChimeDataExtractor
-from comet.plugins.extractors.integraldataextractor import IntegralDataExtractor
-from comet.plugins.extractors.ligodataextractor import LigoDataExtractor
-from comet.plugins.extractors.agiledataextractor import AgileDataExtractor
+
+#trick for imoport from parent directory
+import sys
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
+sys.path.append(d)
+d = d + "/extractors"
+sys.path.append(d)
+
+from extractors.gcndataextractor import GncDataExtractor
+from extractors.chimedataextractor import ChimeDataExtractor
+from extractors.integraldataextractor import IntegralDataExtractor
+from extractors.ligodataextractor import LigoDataExtractor
+from extractors.agiledataextractor import AgileDataExtractor
 
 class DummyEvent(object):
     """
