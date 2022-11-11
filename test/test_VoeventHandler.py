@@ -1,6 +1,12 @@
 from test_voevents import DUMMY_VOEVENT_GCN, DUMMY_VOEVENT_INTEGRAL, DUMMY_VOEVENT_CHIME, DUMMY_VOEVENT_LIGO, DUMMY_VOEVENT_LIGO_INITIAL, DUMMY_VOEVENT_LIGO_PRELIMINARY, DUMMY_VOEVENT_GCN_FERMI, DUMMY_VOEVENT_GCN_MAXI, DUMMY_VOEVENT_AGILE
 import voeventparse as vp
-from comet.plugins.voeventhandler import VoeventHandler
+
+#trick for imoport from parent directory
+import sys
+from os.path import dirname, abspath
+d = dirname(dirname(abspath(__file__)))
+sys.path.append(d)
+from voeventhandler import VoeventHandler
 
 class DummyEvent(object):
     """
@@ -29,13 +35,13 @@ if __name__ == "__main__":
     voe_agile = vp.loads(dummyevents.agile) #tested
 
     voe_handler = VoeventHandler()
-    print(voe_handler.handleVoevent(voe_chime))
-    print(voe_handler.handleVoevent(voe_gcn))
-    print(voe_handler.handleVoevent(voe_integral))
-    print(voe_handler.handleVoevent(voe_fermi))
-    print(voe_handler.handleVoevent(voe_ligo))
-    print(voe_handler.handleVoevent(voe_ligo_2))
-    print(voe_handler.handleVoevent(voe_ligo_init))
-    print(voe_handler.handleVoevent(voe_maxi))
-    print(voe_handler.handleVoevent(voe_agile))
+    voe_handler.handleVoevent(voe_chime)
+    voe_handler.handleVoevent(voe_gcn)
+    voe_handler.handleVoevent(voe_integral)
+    voe_handler.handleVoevent(voe_fermi)
+    voe_handler.handleVoevent(voe_ligo)
+    voe_handler.handleVoevent(voe_ligo_2)
+    voe_handler.handleVoevent(voe_ligo_init)
+    voe_handler.handleVoevent(voe_maxi)
+    voe_handler.handleVoevent(voe_agile)
 
