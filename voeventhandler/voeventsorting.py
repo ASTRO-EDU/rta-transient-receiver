@@ -1,9 +1,8 @@
-from extractors.agiledataextractor import AgileDataExtractor
-from extractors.chimedataextractor import ChimeDataExtractor
-from extractors.gcndataextractor import GncDataExtractor
-from extractors.integraldataextractor import IntegralDataExtractor
-from extractors.ligodataextractor import LigoDataExtractor
-from extractors.utilis.voeventdata import VoeventData
+from voeventhandler.extractors.agiledataextractor import AgileDataExtractor
+from voeventhandler.extractors.chimedataextractor import ChimeDataExtractor
+from voeventhandler.extractors.gcndataextractor import GncDataExtractor
+from voeventhandler.extractors.integraldataextractor import IntegralDataExtractor
+from voeventhandler.extractors.ligodataextractor import LigoDataExtractor
 
 class VoeventSorting(object):
     def __init__(self) -> None:
@@ -13,7 +12,7 @@ class VoeventSorting(object):
         self.integral = IntegralDataExtractor()
         self.ligo = LigoDataExtractor()
 
-    def sort(self, voevent) -> VoeventData:
+    def sort(self, voevent):
         if "gcn" in voevent.attrib['ivorn']:
             return (self.gcn.extract(voevent))
         elif "gwnet" in voevent.attrib['ivorn']:

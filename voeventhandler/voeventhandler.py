@@ -1,6 +1,6 @@
-from voeventsorting import VoeventSorting
-from databaseinterface import DatabaseInterface
-from emailnotifier import EmailNotifier
+from voeventhandler.voeventsorting import VoeventSorting
+from voeventhandler.databaseinterface import DatabaseInterface
+from voeventhandler.emailnotifier import EmailNotifier
 
 class VoeventHandler(object):
     

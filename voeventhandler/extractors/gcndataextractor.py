@@ -1,6 +1,6 @@
-from templatedataextractor import TemplateDataExtractor
-from utilis.instrumentid import InstrumentId
-from utilis.voeventdata import Voeventdata
+from voeventhandler.extractors.templatedataextractor import TemplateDataExtractor
+from voeventhandler.utilis.instrumentid import InstrumentId
+from voeventhandler.utilis.voeventdata import Voeventdata
 from astropy.coordinates import SkyCoord
 from astropy import units as u
 import voeventparse as vp
