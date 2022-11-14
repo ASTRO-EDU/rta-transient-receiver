@@ -1,4 +1,4 @@
-from comet.plugins.extractors.templatedataextractor import TemplateDataExtractor
+from templatedataextractor import TemplateDataExtractor
 from utilis.instrumentid import InstrumentId
 from utilis.voeventdata import Voeventdata
 from astropy.coordinates import SkyCoord
