@@ -1,5 +1,4 @@
 from email.message import EmailMessage
-from utils import Utils
 import smtplib
 import json
 
