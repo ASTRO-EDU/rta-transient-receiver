@@ -1,9 +1,9 @@
-from comet.plugins.extractors.agiledataextractor import AgileDataExtractor
-from comet.plugins.extractors.chimedataextractor import ChimeDataExtractor
-from comet.plugins.extractors.gcndataextractor import GncDataExtractor
-from comet.plugins.extractors.integraldataextractor import IntegralDataExtractor
-from comet.plugins.extractors.ligodataextractor import LigoDataExtractor
-from comet.plugins.voeventdata import Voeventdata
+from extractors.agiledataextractor import AgileDataExtractor
+from extractors.chimedataextractor import ChimeDataExtractor
+from extractors.gcndataextractor import GncDataExtractor
+from extractors.integraldataextractor import IntegralDataExtractor
+from extractors.ligodataextractor import LigoDataExtractor
+from extractors.utilis.voeventdata import VoeventData
 
 class VoeventSorting(object):
     def __init__(self) -> None:
@@ -13,7 +13,7 @@ class VoeventSorting(object):
         self.integral = IntegralDataExtractor()
         self.ligo = LigoDataExtractor()
 
-    def sort(self, voevent) -> Voeventdata:
+    def sort(self, voevent) -> VoeventData:
         if "gcn" in voevent.attrib['ivorn']:
             return (self.gcn.extract(voevent))
         elif "gwnet" in voevent.attrib['ivorn']:
