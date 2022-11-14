@@ -39,4 +39,11 @@ pip install .
 After the installation you can test the voevent handler with the provided test that can be found in voeventhandler/test
 Those test use dummy voevent provided by the class test_voevent
 
+For example you can test the whole code using test_VoEventHandler.py:
+```
+python3 voeventhandler/test/test_VoeventHandler.py
+```
+This test will simulate multiple call of the main method handleVoevent conteined in the class voeventhandler whith different type of voevent.
+For each of those will extract and insert into the database the usefull data from the given xml file and notify the team sending an email. 
+
 
