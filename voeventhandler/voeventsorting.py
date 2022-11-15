@@ -6,6 +6,9 @@ from voeventhandler.extractors.ligodataextractor import LigoDataExtractor
 
 class VoeventSorting(object):
     def __init__(self) -> None:
+        """
+        When the class is created, the extractors are created too
+        """
         self.agile = AgileDataExtractor()
         self.chime = ChimeDataExtractor()
         self.gcn = GncDataExtractor()
@@ -13,6 +16,12 @@ class VoeventSorting(object):
         self.ligo = LigoDataExtractor()
 
     def sort(self, voevent):
+        """
+        This method is used to sort the voevent. 
+        The sorting method is based on the field ivorn of the voevent.
+        If the instrument is not supported, the method raise an exception.
+        """
+
         if "gcn" in voevent.attrib['ivorn']:
             return (self.gcn.extract(voevent))
         elif "gwnet" in voevent.attrib['ivorn']:
