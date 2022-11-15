@@ -30,10 +30,16 @@ Then install the dependency contained in the file requirements.txt in the new vi
 pip install -r requirements.txt
 ```
 
-And use the following command for excecute the file setup.py
+If you just wanto to use the code use the following command for excecute the file setup.py
 ```
 pip install .
 ```
+
+If you want to modify the code and test without reinstalling everytime use:
+```
+pip install -e .
+```
+
 
 ### Testing installation
 After the installation you can test the voevent handler with the provided test that can be found in voeventhandler/test
