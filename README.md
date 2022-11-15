@@ -46,4 +46,7 @@ python3 voeventhandler/test/test_VoeventHandler.py
 This test will simulate multiple call of the main method handleVoevent conteined in the class voeventhandler whith different type of voevent.
 For each of those will extract and insert into the database the usefull data from the given xml file and notify the team sending an email. 
 
-
+## Important email 
+The code provides a special function for establish if a voevent is important and sholud be marked in a special way during the email notification. 
+You can find this function in the path voeventhandler/emailnotifier.py and it's name is is_important(). 
+From deafault configuration this class return False, but you can build yuor own rule creating conditional operations usign the field of the voeventdata object. For a fast look to what this field are look at the class voeventdata contained at path voeventhandler/utilis/voeventdata.py.
