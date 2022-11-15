@@ -25,6 +25,12 @@ class DummyEvent(object):
     agile = DUMMY_VOEVENT_AGILE
 
 if __name__ == "__main__":
+    """
+    this main test the correct working of the entire voeventhandler code.
+    As imput takes a generic voevent, then it is sorted and  extracted.
+    the usefull information are insert in the database, and a email notification
+    is sent to the team 
+    """
     dummyevents = DummyEvent()
     voe_chime = vp.loads(dummyevents.chime) #tested
     voe_gcn = vp.loads(dummyevents.gcn) #tested

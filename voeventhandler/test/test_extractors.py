@@ -30,6 +30,10 @@ class DummyEvent(object):
     agile = DUMMY_VOEVENT_AGILE
 
 if __name__ == "__main__":
+    """
+    this test the correct vorking of the extractors
+    the voevent is given to the correct extractor and the data are extracted and printed
+    """
     dummyevents = DummyEvent()
     voe_chime = vp.loads(dummyevents.chime) #tested
     voe_gcn = vp.loads(dummyevents.gcn) #tested

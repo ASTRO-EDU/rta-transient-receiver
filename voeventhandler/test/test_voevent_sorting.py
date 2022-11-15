@@ -23,6 +23,13 @@ class DummyEvent(object):
     agile = DUMMY_VOEVENT_AGILE
 
 if __name__ == "__main__":
+    """
+    this main test the correct working of the sorting and extractors mechanism
+    as input is given a generic voevent, then the sorting mechanism is used to 
+    sort the voevent in the correct extractor, then the extractor is used to
+    extract the data from the voevent.
+    """
+    
     dummyevents = DummyEvent()
     voe_chime = vp.loads(dummyevents.chime) #tested
     voe_gcn = vp.loads(dummyevents.gcn) #tested
