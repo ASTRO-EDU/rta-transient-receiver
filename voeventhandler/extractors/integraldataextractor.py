@@ -6,7 +6,10 @@ from astropy import units as u
 import voeventparse as vp
 
 class IntegralDataExtractor(TemplateDataExtractor):
-
+        """
+        This class is an implementation of the TemplateDataExtractor class.
+        It implements the method that are specific for the Integral data source.
+        """
         def __init__(self) -> None:
             super().__init__("integral")
 

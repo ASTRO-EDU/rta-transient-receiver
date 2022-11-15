@@ -4,11 +4,24 @@ import voeventparse as vp
 import numpy as np
 
 class TemplateDataExtractor(object):
-    
+    """
+    This class represent the template for the data extractor.
+    It implements the method that are common to all the data extractor.
+    For creating a new data extractor it just need to import this class and 
+    implement the method that are specific for the data source.
+    """
     def __init__(self, datasource) -> None:
+        """
+        During the class initialization the datasource is set.
+        """
         self.datasource = datasource
 
     def extract(self, voevent) -> Voeventdata:
+        """
+        This method is in common to all the data extractor.
+        It simply calls the other abstract method and return a Voeventdata object
+        that represents the data extracted to the voevent.
+        """
         is_ste = self.is_ste(voevent)
         instrument_id, name= self.get_instrumentID_and_name(voevent)
         trigger_id = self.get_triggerID(voevent)
@@ -28,8 +41,6 @@ class TemplateDataExtractor(object):
         tstop = 0
         last = 1
 
-        #here need to be create a new class that store the previusly 
-        #extracted data and return it
         return Voeventdata(self.datasource, is_ste, instrument_id, trigger_id,
                     packet_type, isoTime, UTC, network_id, l, b, position_error,
                     notice, configuration, url, contour, ligo_attributes,

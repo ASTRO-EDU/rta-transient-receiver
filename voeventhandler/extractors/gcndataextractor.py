@@ -7,7 +7,10 @@ import voeventparse as vp
 import math
 
 class GncDataExtractor(TemplateDataExtractor):
-
+    """
+    This class is an implementation of the TemplateDataExtractor class.
+    It implements the method that are specific for the GCN data source.
+    """
 
     def __init__(self) -> None:
         super().__init__("gnc")
@@ -19,6 +22,10 @@ class GncDataExtractor(TemplateDataExtractor):
         return 0
     
     def get_instrumentID_and_name(self, voevent) -> tuple:
+        """
+        Depending of the packet number, the instrumentID and name are set.
+        That is necessary to identify the data source.
+        """
         packet_type = int(voevent.What.Param[0].attrib["value"])
         if packet_type in [53,54,55]: # INTEGRAL FROM GCN
             return InstrumentId.INTEGRAL.value, "INTEGRAL"

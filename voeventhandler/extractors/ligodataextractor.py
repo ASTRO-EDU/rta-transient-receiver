@@ -15,6 +15,10 @@ import os
 
 
 class LigoDataExtractor(TemplateDataExtractor):
+    """
+    This class is an implementation of the TemplateDataExtractor class.
+    It implements the method that are specific for the Ligo data source.
+    """
     def __init__(self) -> None:
         super().__init__("ligo")
 

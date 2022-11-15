@@ -6,6 +6,10 @@ from astropy import units as u
 import voeventparse as vp
 
 class ChimeDataExtractor(TemplateDataExtractor):
+    """
+    This class is an implementation of the TemplateDataExtractor class.
+    It implements the method that are specific for the CHIME data source.
+    """
     def __init__(self) -> None:
         super().__init__("chime")
 
