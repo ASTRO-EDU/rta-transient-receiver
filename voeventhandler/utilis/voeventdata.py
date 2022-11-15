@@ -1,4 +1,10 @@
 class Voeventdata(object):
+    """
+    This class is used to store the data relative to a specific voevent.
+    When is created, it is filled with the data extracted from the voevent.
+    Then during the database insertion the fiend seqNum and received_science_alert_id are set.
+    """
+
     def __init__(self, datasource, is_ste, instrument_id, trigger_id,
                     packet_type, isoTime, UTC, network_id, l, b, position_error,
                     notice, configuration, url, contour, ligo_attributes,
