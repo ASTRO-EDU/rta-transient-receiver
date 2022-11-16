@@ -11,5 +11,5 @@
     "sender_email": "sender email address",
     "sender_email_password": "",
     "email_recivers" : ["receiver email here"],
-    "important_email_subject" : ["IMPORTAT : "]
+    "important_email_subject" : ["IMPORTANT : "]
 }
