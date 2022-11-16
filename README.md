@@ -58,7 +58,7 @@ You can find this function in the path voeventhandler/emailnotifier.py and it's 
 From deafault configuration this class return False, but you can build yuor own rule creating conditional operations usign the field of the voeventdata object. For a fast look to what this field are look at the class voeventdata contained at path voeventhandler/utilis/voeventdata.py. The tag can be modified in the config file.
 
 ## Databasem configuration
-For developing was used mysql 5.7.40 with the option ONLY_FULL_GROUP_BY deactivate. 
+For developing was used mysql 5.7.40 with the option ONLY_FULL_GROUP_BY disabled. 
 Is important because this query can couse problems
 ```
 SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid
