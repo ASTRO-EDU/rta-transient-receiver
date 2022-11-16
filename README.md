@@ -59,6 +59,12 @@ From deafault configuration this class return False, but you can build yuor own 
 
 ## Databasem configuration
 For developing was used mysql 5.7.40 with the option ONLY_FULL_GROUP_BY disabled. 
+
+For disabling ONLY_FULL_GROUP_BY use the mysql command: 
+```
+mysql > SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+```
+
 Is important because this query can couse problems
 ```
 SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid
