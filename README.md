@@ -65,12 +65,8 @@ For disabling ONLY_FULL_GROUP_BY use the mysql command:
 mysql > SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 ```
 
-Is important because this query can couse problems
+Is important because this query conteined in the class databaseinterface.py can couse problems
 ```
 SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid
 ```
 
-If so use the query: 
-```
-SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid, rsa.ste, rsa.time as `trigger_time` from notice n, correlations c, receivedsciencealert rsa, instrument ins WHERE n.receivedsciencealertid = c.rsaId2 AND rsa.receivedsciencealertid = n.receivedsciencealertid AND ins.instrumentid = rsa.instrumentid AND c.rsaId1 = {voeventdata.receivedsciencealertid} GROUP BY n.receivedsciencealertid, ins.name, n.noticetime;
-```
