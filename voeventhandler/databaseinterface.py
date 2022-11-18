@@ -1,6 +1,7 @@
-import json
-import mysql.connector
 from datetime import datetime
+from pathlib import Path
+import mysql.connector
+import json
 
 class DatabaseInterface(object):
     """
@@ -16,7 +17,8 @@ class DatabaseInterface(object):
         Read database connection parameters from the config.json file.
         """
 
-        f = open('voeventhandler/config/config.json')
+        config_file = Path(__file__).parent / "config" / "config.json"        
+        f = open(config_file)
         config = json.load(f)
         db_user = config['Database_user']
         db_password = config['Database_password']

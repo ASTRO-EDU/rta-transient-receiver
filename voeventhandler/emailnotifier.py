@@ -1,4 +1,5 @@
 from email.message import EmailMessage
+from pathlib import Path
 import smtplib
 import json
 
@@ -10,7 +11,8 @@ class EmailNotifier(object):
         """
         When the class is created, it reads the configuration file and sets the email parameters
         """
-        f = open('voeventhandler/config/config.json')
+        config_file = Path(__file__).parent / "config" / "config.json"        
+        f = open(config_file)
         config = json.load(f)
         self.mail = Mail(config["sender_email"], config["sender_email_password"])
         self.to = config["email_recivers"]
