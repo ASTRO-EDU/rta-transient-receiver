@@ -60,6 +60,11 @@ From deafault configuration this class return False, but you can build yuor own 
 ## Databasem configuration
 For developing was used mysql 5.7.40 with the option ONLY_FULL_GROUP_BY disabled. 
 
+For checking what options are enabled use the command:
+```
+mysql > SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+```
+
 For disabling ONLY_FULL_GROUP_BY use the mysql command: 
 ```
 mysql > SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
