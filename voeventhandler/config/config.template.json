@@ -1,0 +1,15 @@
+{
+    "_section_1": "database connection information",
+    "Database_user": "", 
+    "Database_password" : "",
+    "Database_host":"", 
+    "Database_port":"",
+    "Database_name":"",
+
+    "_section_2": "sender_email_information",
+    "packet_with_email_notification": ["150", "151", "152", "163", "158", "169", "173", "174"],
+    "sender_email": "",
+    "sender_email_password": "",
+    "email_recivers" : [],
+    "important_email_subject" : ["IMPORTANT : "]
+}
