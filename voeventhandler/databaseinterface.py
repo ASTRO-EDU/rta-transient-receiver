@@ -3,40 +3,40 @@ from pathlib import Path
 import mysql.connector
 import json
 
-class DatabaseInterface(object):
+class DatabaseInterface:
     """
     This class is meant to be the interface between the VOEventHandler and the database.
     It is responsible for insert and find correlation between VoEvents.
     """
 
-    def __init__(self):
+    def __init__(self, config_file):
         """
         This method is called when the class is instantiated.
         It create a connection to the database. 
         If cannot connect to the database, it raises an exception.
         Read database connection parameters from the config.json file.
         """
-
-        config_file = Path(__file__).parent / "config" / "config.json"        
-        f = open(config_file)
-        config = json.load(f)
-        db_user = config['Database_user']
-        db_password = config['Database_password']
-        db_host = config['Database_host']
-        db_port = config['Database_port']
-        db_name = config['Database_name']
+        with open(config_file) as f:
+            config = json.load(f)
+            db_user = config['Database_user']
+            db_password = config['Database_password']
+            db_host = config['Database_host']
+            db_port = config['Database_port']
+            db_name = config['Database_name']
         
         try:
             self.cnx = mysql.connector.connect(user=db_user, password=db_password,
                             host=db_host, port=db_port, database=db_name)
             self.cursor = self.cnx.cursor()               
         except mysql.connector.Error as err:
+            print(f"Error connecting to the database, using the following parameters: user={db_user}, password=***, host={db_host}, port={db_port}, database={db_name}")
             if err.errno == mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
                 print("Something is wrong with your user name or password, please set the current parameter as env variable")
             elif err.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
                 print("Database does not exist")
             else:
-                print(err)
+                print(f"Unexpected error")
+
             raise err
 
     def insert_voevent(self, voevent):

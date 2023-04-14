@@ -3,21 +3,20 @@ from pathlib import Path
 import smtplib
 import json
 
-class EmailNotifier(object):
+class EmailNotifier:
     """
     This class is used to provides a simple interface to send emails.
     """
-    def __init__(self):
+    def __init__(self, config_file):
         """
         When the class is created, it reads the configuration file and sets the email parameters
         """
-        config_file = Path(__file__).parent / "config" / "config.json"        
-        f = open(config_file)
-        config = json.load(f)
-        self.mail = Mail(config["sender_email"], config["sender_email_password"])
-        self.to = config["email_recivers"]
-        self.packet_with_email_notification = config["packet_with_email_notification"]
-        self.important_email_subject = config["important_email_subject"]
+        with open(config_file) as f:
+            config = json.load(f)
+            self.mail = Mail(config["sender_email"], config["sender_email_password"])
+            self.to = config["email_recivers"]
+            self.packet_with_email_notification = config["packet_with_email_notification"]
+            self.important_email_subject = config["important_email_subject"]
 
     def sendEmails(self, voeventdata, result_row):
         """
@@ -45,7 +44,7 @@ class EmailNotifier(object):
 
         return False
 
-class Mail():
+class Mail:
     
     def __init__(self, gmail_user, gmail_password) -> None:
         """
@@ -58,6 +57,7 @@ class Mail():
         """
         given a list of recipients, a subject and a body, this method sends an email to all the recipients
         """
+        print("bodY: ",body)
         msg = EmailMessage()
         msg.set_content(body)
         msg['Subject'] = subject
@@ -72,4 +72,4 @@ class Mail():
             smtp_server.close()
             print("Email sent successfully!")
         except Exception as ex:
-            print("Something went wrong….",ex)
+            print("Something went wrong in send_email:", ex)

@@ -2,19 +2,19 @@ from voeventhandler.voeventsorting import VoeventSorting
 from voeventhandler.databaseinterface import DatabaseInterface
 from voeventhandler.emailnotifier import EmailNotifier
 
-class VoeventHandler(object):
+class VoeventHandler:
     """
     This class meant to be a wrapper for the voeventhandler, it will handle the 
     voevent database insertion and email notification. 
     """
     
-    def __init__(self):
+    def __init__(self, config_file):
         """
         When the class is created, the database interface and the email notifier are created.
         """
-        self.db = DatabaseInterface()
+        self.db = DatabaseInterface(config_file)
+        self.email_notifier = EmailNotifier(config_file)
         self.voevent_sorter = VoeventSorting()
-        self.email_notifier = EmailNotifier()
 
     def handleVoevent(self, voevent):
         """
