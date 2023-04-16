@@ -61,8 +61,11 @@ class GncDataExtractor(TemplateDataExtractor):
 
     def get_triggerID(self, voevent):
         top_params = vp.get_toplevel_params(voevent)
-        return top_params["TrigID"]["value"]
-
+        if "TrigID" in top_params:
+            return top_params["TrigID"]["value"]
+        else:
+            print("[Warning] No 'TrigID' found in voevent")
+            return -1
     def get_packet_type(self, voevent):
         top_params = vp.get_toplevel_params(voevent)
         return top_params["Packet_Type"]["value"]
