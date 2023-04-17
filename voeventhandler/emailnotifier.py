@@ -57,7 +57,6 @@ class Mail:
         """
         given a list of recipients, a subject and a body, this method sends an email to all the recipients
         """
-        print("bodY: ",body)
         msg = EmailMessage()
         msg.set_content(body)
         msg['Subject'] = subject

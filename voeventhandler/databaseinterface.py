@@ -35,7 +35,7 @@ class DatabaseInterface:
             elif err.errno == mysql.connector.errorcode.ER_BAD_DB_ERROR:
                 print("Database does not exist")
             else:
-                print(f"Unexpected error")
+                print("Unexpected error")
 
             raise err
 
@@ -88,6 +88,8 @@ class DatabaseInterface:
         self.cursor.execute(query)
         self.cnx.commit()
 
+        print("VoEvent inserted in the database")
+
     def meange_correlated_instruments(self, voeventdata):
         """
         This method is used to find the correlation between the VoEvents.
@@ -116,6 +118,8 @@ class DatabaseInterface:
 
             self.cursor.execute(query)
             results_row = self.cursor.fetchall()
+            print("Correlated instruments found")
             return results_row
         else:
+            print("No correlated instruments found")
             return None

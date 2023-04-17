@@ -23,14 +23,19 @@ class VoeventSorting(object):
         """
 
         if "gcn" in voevent.attrib['ivorn']:
+            print("New GCN notice")
             return (self.gcn.extract(voevent))
         elif "gwnet" in voevent.attrib['ivorn']:
+            print("New LIGO notice")
             return (self.ligo.extract(voevent))
         elif "chimenet" in voevent.attrib['ivorn']:
+            print("New CHIME notice")
             return (self.chime.extract(voevent))
         elif "INTEGRAL" in voevent.attrib['ivorn']:
+            print("New INTEGRAL notice")
             return (self.integral.extract(voevent))
         elif "AGILE" in voevent.attrib['ivorn']:
+            print("New AGILE notice")
             return (self.agile.extract(voevent))
         else:
-            raise Exception(f"Notice not supported  ivorn is {self.voevent.attrib['ivorn']}")
+            raise Exception(f"Notice not supported, ivorn is {self.voevent.attrib['ivorn']}")

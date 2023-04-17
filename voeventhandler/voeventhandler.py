@@ -26,10 +26,4 @@ class VoeventHandler:
         self.db.insert_voevent(voeventdata)
         result_row = self.db.meange_correlated_instruments(voeventdata)
         self.email_notifier.sendEmails(voeventdata, result_row)
-    
-    def printVoevent(self, voevent):
-        """
-        This method is used to print the voevent data.
-        """
-        voeventdata = self.voevent_sorter.sort(voevent)
-        print(voeventdata)
+        return voeventdata
