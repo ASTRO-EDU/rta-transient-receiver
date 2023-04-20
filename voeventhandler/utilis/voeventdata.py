@@ -7,7 +7,7 @@ class Voeventdata(object):
 
     def __init__(self, datasource, is_ste, instrument_id, trigger_id,
                     packet_type, isoTime, UTC, network_id, l, b, position_error,
-                    notice, configuration, url, contour, ligo_attributes,
+                    notice, configuration, url, contour, ligo_attributes : dict,
                     name, seqNum, tstart, tstop, last) -> None:
         self.datasource = datasource
         self.is_ste = is_ste

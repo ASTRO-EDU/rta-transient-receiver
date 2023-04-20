@@ -11,5 +11,6 @@
     "sender_email": "",
     "sender_email_password": "",
     "email_recivers" : [],
-    "important_email_subject" : ["IMPORTANT : "]
+    "important_email_subject" : ["IMPORTANT : "],
+    "diagnostic_email_receivers" : []
 }

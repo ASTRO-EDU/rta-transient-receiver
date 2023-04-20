@@ -22,8 +22,12 @@ class VoeventHandler:
         Then it will handle the email notification.
         The parameter voevent is expected to be an xml object.
         """
-        voeventdata = self.voevent_sorter.sort(voevent)
-        self.db.insert_voevent(voeventdata)
-        result_row = self.db.meange_correlated_instruments(voeventdata)
-        self.email_notifier.sendEmails(voeventdata, result_row)
+        try:
+            voeventdata = self.voevent_sorter.sort(voevent)
+            self.db.insert_voevent(voeventdata)
+            result_row = self.db.meange_correlated_instruments(voeventdata)
+            self.email_notifier.sendEmails(voeventdata, result_row)
+        except Exception as e:
+            self.email_notifier.diagnosticEmails(voevent.attrib['ivorn'], e)
+            raise e
         return voeventdata

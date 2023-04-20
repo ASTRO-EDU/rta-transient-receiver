@@ -87,7 +87,7 @@ class LigoDataExtractor(TemplateDataExtractor):
 
         attributes["significant"] = top_params["Significant"]["value"]
 
-        return str(json.dumps(attributes))
+        return attributes
 
     def get_contour(self, l, b, position, url):
         """

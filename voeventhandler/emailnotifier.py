@@ -15,8 +15,12 @@ class EmailNotifier:
             config = json.load(f)
             self.mail = Mail(config["sender_email"], config["sender_email_password"])
             self.to = config["email_recivers"]
+            self.to_developers = config["diagnostic_email_receivers"]
             self.packet_with_email_notification = config["packet_with_email_notification"]
             self.important_email_subject = config["important_email_subject"]
+
+    def diagnosticEmails(self, name, exception):
+        self.mail.send_email(self.to_developers, f"Exception alert for {name}", f"Exception: {exception}")
 
     def sendEmails(self, voeventdata, result_row):
         """
@@ -31,8 +35,7 @@ class EmailNotifier:
             if voeventdata.ligo_attributes:
                 # load as json
                 try:
-                    ligo_attributes = json.load(voeventdata.ligo_attributes)
-                    for key, value in ligo_attributes.items():
+                    for key, value in voeventdata.ligo_attributes.items():
                         body += f"\n{key}: {value}"
                 except ValueError:
                     body += f"\n{voeventdata.ligo_attributes}"
