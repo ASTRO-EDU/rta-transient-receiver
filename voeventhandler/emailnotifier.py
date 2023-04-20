@@ -29,8 +29,13 @@ class EmailNotifier:
             body = f'The platform received a notice for the {voeventdata.name} event at {voeventdata.UTC} for trigger {voeventdata.trigger_id} with sequence number {voeventdata.seqNum} \n'
             
             if voeventdata.ligo_attributes:
-                for key, value in voeventdata.ligo_attributes.items():
-                    body += f"\n{key}: {value}"
+                # load as json
+                try:
+                    ligo_attributes = json.load(voeventdata.ligo_attributes)
+                    for key, value in ligo_attributes.items():
+                        body += f"\n{key}: {value}"
+                except ValueError:
+                    body += f"\n{voeventdata.ligo_attributes}"
 
             if self._is_important(voeventdata):
                 subject = self.important_email_subject + " " + subject
