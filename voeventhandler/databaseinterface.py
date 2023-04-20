@@ -72,9 +72,7 @@ class DatabaseInterface:
             seqNum = int(result_seqnum[0]) + 1 
         except:
             seqNum = 0
-        
-        pass
-    
+            
         voevent.set_seq_num(seqNum)
 
         #last handling

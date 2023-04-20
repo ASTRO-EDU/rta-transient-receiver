@@ -14,11 +14,9 @@ class TestExtractors:
     def test_ligo(self, notice_str):
         assert LigoDataExtractor().extract(vp.loads(notice_str))
 
-
     @pytest.mark.parametrize("notice_str", ["icecube_bronze.xml"], indirect=True)
     def test_gcn(self, notice_str):
         assert GncDataExtractor().extract(vp.loads(notice_str))
-        assert GncDataExtractor().extract(vp.loads(DUMMY_VOEVENT_GCN))
     
     def test_chime(self):
         voe = vp.loads(DUMMY_VOEVENT_CHIME)

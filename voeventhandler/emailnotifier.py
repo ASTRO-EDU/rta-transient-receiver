@@ -23,8 +23,15 @@ class EmailNotifier:
         This method is used to send the emails corresponding to the given VoEvent.
         """
         if voeventdata.packet_type in self.packet_with_email_notification or voeventdata.is_ste: #it will send an email for GW, Neutrino event or STE events
+            
             subject = f'Notice alert for {voeventdata.name}'
-            body = f'The platform received a notice for the {voeventdata.name} event at {voeventdata.UTC} for triggerID {voeventdata.trigger_id}'
+            
+            body = f'The platform received a notice for the {voeventdata.name} event at {voeventdata.UTC} for trigger {voeventdata.trigger_id} with sequence number {voeventdata.seqNum} \n'
+            
+            if voeventdata.ligo_attributes:
+                for key, value in voeventdata.ligo_attributes.items():
+                    body += f"\n{key}: {value}"
+
             if self._is_important(voeventdata):
                 subject = self.important_email_subject + " " + subject
             self.mail.send_email(self.to, subject, body)
@@ -32,8 +39,10 @@ class EmailNotifier:
         #check if there are correlated instruments and send an email if so
         if result_row:
             subject = f'Correlations for {voeventdata.name}'
-            body = f'The platform received a notice for the {voeventdata.name} at {voeventdata.UTC} for triggerID {voeventdata.trigger_id} with the following correlated events: {str(result_row)}'
+            body = f'The platform received a notice for the {voeventdata.name} at {voeventdata.UTC} for trigge {voeventdata.trigger_id} with sequence number {voeventdata.seqNum} with the following correlated events: {str(result_row)}'
             self.mail.send_email(self.to, subject, body)
+
+        return subject, body
     
     def _is_important(self, voeventdata) -> bool:
         """

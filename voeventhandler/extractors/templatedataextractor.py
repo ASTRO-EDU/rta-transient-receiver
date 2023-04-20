@@ -47,6 +47,9 @@ class TemplateDataExtractor(object):
                     name, seqNum, tstart, tstop, last)
 
     def is_ste(self, voevent) -> tuple:
+        """
+        Return 1 if the voevent is a sub-threshold event, 0 otherwise.
+        """
         raise NotImplementedError
 
     def get_instrumentID_and_name(self, voevent):
@@ -64,6 +67,9 @@ class TemplateDataExtractor(object):
         return np.round(t.unix - 1072915200), t.fits
 
     def get_networkID(self, voevent):
+        """
+        Get it from the database
+        """
         raise NotImplementedError
 
     def get_l_b(self, voevent):

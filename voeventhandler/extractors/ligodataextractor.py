@@ -66,7 +66,7 @@ class LigoDataExtractor(TemplateDataExtractor):
         """
         tipical LIGO attributes extracted:
         {"bbh": 0, "bns": 0.9999947011562164, "far": 0.00000000000009110699364861295, "nsbh": 0, "has_ns": 1, "grace_id": "MS210208t",
-        "mass_gap": 0, "has_remnant": 1, "terrestrial": 0.000005298843783562432}
+        "mass_gap": 0, "has_remnant": 1, "terrestrial": 0.000005298843783562432, "significant": 1}
         """
 
         top_params = vp.get_toplevel_params(voevent)
@@ -84,6 +84,8 @@ class LigoDataExtractor(TemplateDataExtractor):
             attributes["mass_gap"] = 0
         attributes["has_remnant"] = grouped_params["Properties"]["HasRemnant"]["value"]
         attributes["terrestrial"] = grouped_params["Classification"]["Terrestrial"]["value"]
+
+        attributes["significant"] = top_params["Significant"]["value"]
 
         return str(json.dumps(attributes))
 

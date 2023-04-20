@@ -21,21 +21,28 @@ class VoeventSorting(object):
         The sorting method is based on the field ivorn of the voevent.
         If the instrument is not supported, the method raise an exception.
         """
-
-        if "gcn" in voevent.attrib['ivorn']:
+        ivorn = voevent.attrib['ivorn']
+        
+        if "gcn" in ivorn:
             print("New GCN notice")
             return (self.gcn.extract(voevent))
-        elif "gwnet" in voevent.attrib['ivorn']:
+
+        # Handle different networks
+        
+        if "gwnet" in ivorn:
             print("New LIGO notice")
             return (self.ligo.extract(voevent))
-        elif "chimenet" in voevent.attrib['ivorn']:
+
+        if "chimenet" in ivorn:
             print("New CHIME notice")
             return (self.chime.extract(voevent))
-        elif "INTEGRAL" in voevent.attrib['ivorn']:
+
+        if "INTEGRAL" in ivorn:
             print("New INTEGRAL notice")
             return (self.integral.extract(voevent))
-        elif "AGILE" in voevent.attrib['ivorn']:
+
+        if "AGILE" in ivorn:
             print("New AGILE notice")
             return (self.agile.extract(voevent))
-        else:
-            raise Exception(f"Notice not supported, ivorn is {self.voevent.attrib['ivorn']}")
+        
+        raise Exception(f"Notice not supported, ivorn is {ivorn}")

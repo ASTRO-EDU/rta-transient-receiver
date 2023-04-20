@@ -38,4 +38,4 @@ class Voeventdata(object):
         self.receivedsciencealertid = receivedsciencealertid
 
     def __str__(self):
-        return f"Voevent\nIntrumentID: {self.instrument_id}, name:{self.name}, seqNum {self.seqNum}, triggerid: {self.trigger_id}, packetType: {self.packet_type},time: {self.UTC}, l: {self.l}, b: {self.b}, contour: {self.contour}, url: {self.url}"
+        return f"InstrumentID: {self.instrument_id}, name:{self.name}, seqNum {self.seqNum}, triggerid: {self.trigger_id}, packetType: {self.packet_type},time: {self.UTC}, l: {self.l}, b: {self.b}, url: {self.url}"
