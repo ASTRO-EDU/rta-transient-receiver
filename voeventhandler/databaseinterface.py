@@ -48,12 +48,14 @@ class DatabaseInterface:
         query = f"SELECT receivedsciencealertid FROM receivedsciencealert WHERE instrumentid = {voevent.instrument_id} AND triggerid = {voevent.trigger_id};"
         self.cursor.execute(query)
         check_rsa = self.cursor.fetchone()
+        print(f"Executed query: {query}\nResult {check_rsa}")
 
         #insert in receivedsciencealert table if not already present
         #get id of the last row inserted
         if check_rsa is None:
             query = f'INSERT INTO receivedsciencealert (instrumentid, networkid, time, triggerid, ste) VALUES ({voevent.instrument_id}, {voevent.network_id}, {voevent.isoTime}, {voevent.trigger_id}, {voevent.is_ste});'
             self.cursor.execute(query)
+            print(f"Executed query: {query}")
             self.cnx.commit()
 
             receivedsciencealertid = self.cursor.lastrowid
@@ -67,6 +69,7 @@ class DatabaseInterface:
         query = f"SELECT seqnum FROM notice n join receivedsciencealert rsa ON (rsa.receivedsciencealertid = n.receivedsciencealertid) WHERE last = 1 AND rsa.instrumentid = {voevent.instrument_id} AND rsa.triggerid = {voevent.trigger_id}"
         self.cursor.execute(query)
         result_seqnum = self.cursor.fetchone()
+        print(f"Executed query: {query}\nResult {result_seqnum}")
 
         try:
             seqNum = int(result_seqnum[0]) + 1 
@@ -74,21 +77,24 @@ class DatabaseInterface:
             seqNum = 0
             
         voevent.set_seq_num(seqNum)
-
+        print(f"SeqNum set to {seqNum}")
         #last handling
         query = f"UPDATE notice SET last = 0 WHERE last = 1 AND receivedsciencealertid = {voevent.receivedsciencealertid};"
         self.cursor.execute(query)
+        print(f"Executed query: {query}")
         self.cnx.commit()
 
         #insert in notice table
         noticetime = datetime.utcnow().isoformat(timespec="seconds")
-        query = f"INSERT INTO notice (receivedsciencealertid, seqnum, l, b, error, contour, `last`, `type`, configuration, noticetime, notice, tstart, tstop, url, `attributes`, afisscheck) VALUES ({voevent.receivedsciencealertid}, {voevent.seqNum}, {voevent.l}, {voevent.b}, {voevent.position_error}, '{voevent.contour}', {voevent.last}, {voevent.packet_type}, '{voevent.configuration}', '{noticetime}', '{voevent.notice}', {voevent.tstart}, {voevent.tstop}, '{voevent.url}', '{voevent.ligo_attributes}', 0);"
+        query = f"INSERT INTO notice (receivedsciencealertid, seqnum, l, b, error, contour, `last`, `type`, configuration, noticetime, notice, tstart, tstop, url, `attributes`, afisscheck) VALUES ({voevent.receivedsciencealertid}, {voevent.seqNum}, {voevent.l}, {voevent.b}, {voevent.position_error}, '{voevent.contour}', {voevent.last}, {voevent.packet_type}, '{voevent.configuration}', '{noticetime}', '{voevent.notice}', {voevent.tstart}, {voevent.tstop}, '{voevent.url}', '{json.dumps(voevent.ligo_attributes)}', 0);"
         self.cursor.execute(query)
+        print("Executed query: " + query[:170])
         self.cnx.commit()
 
         print("VoEvent inserted in the database")
+        return True
 
-    def meange_correlated_instruments(self, voeventdata):
+    def find_correlated_instruments(self, voeventdata):
         """
         This method is used to find the correlation between the VoEvents.
         """
@@ -112,12 +118,19 @@ class DatabaseInterface:
             #in that case use the following query: 
             #query = f"SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid, rsa.ste, rsa.time as `trigger_time` from notice n, correlations c, receivedsciencealert rsa, instrument ins WHERE n.receivedsciencealertid = c.rsaId2 AND rsa.receivedsciencealertid = n.receivedsciencealertid AND ins.instrumentid = rsa.instrumentid AND c.rsaId1 = {voeventdata.receivedsciencealertid} GROUP BY n.receivedsciencealertid, ins.name, n.noticetime;"
 
-            query = f"SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid"
-
+            query = f"SELECT ins.name AS istrument_name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid"
             self.cursor.execute(query)
             results_row = self.cursor.fetchall()
-            print("Correlated instruments found")
+
+            if results_row is None:
+                return []
+            
+            print(f"Correlated instruments found:")
+            for row in results_row:
+                print(f" - {row}")
+
             return results_row
+
         else:
             print("No correlated instruments found")
-            return None
+            return []

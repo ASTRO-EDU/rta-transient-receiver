@@ -28,9 +28,14 @@ class LigoDataExtractor(TemplateDataExtractor):
     def is_ste(self, voevent):
         return 0
 
+    def is_test(self, voevent):
+        if "test" in voevent.attrib['role']:
+            return True
+        return False
+    
     def get_instrumentID_and_name(self, voevent) -> tuple:
         packet_type = int(voevent.What.Param[0].attrib["value"])
-        if packet_type in [150, 151, 152, 163]: #LIGO and LIGO_TEST TBD
+        if packet_type in [150, 151, 152]: # Preliminary, Initial, Update https://emfollow.docs.ligo.org/userguide/content.html
             if  "test" in voevent.attrib['role']:
                 return InstrumentId.LIGO_TEST.value, "LIGO_TEST"
             if  "observation" in voevent.attrib['role']:
@@ -72,10 +77,10 @@ class LigoDataExtractor(TemplateDataExtractor):
         top_params = vp.get_toplevel_params(voevent)
         grouped_params = vp.get_grouped_params(voevent)
         attributes = {}
-        attributes["bbh"] = grouped_params["Classification"]["BBH"]["value"]
-        attributes["bns"] = grouped_params["Classification"]["BNS"]["value"] #special mail soglia configurabile
-        attributes["far"] = top_params["FAR"]["value"]
-        attributes["nsbh"] = grouped_params["Classification"]["NSBH"]["value"] #special mail soglia configurabile
+        attributes["bbh"] = float(grouped_params["Classification"]["BBH"]["value"])
+        attributes["bns"] = float(grouped_params["Classification"]["BNS"]["value"]) #special mail soglia configurabile
+        attributes["far"] = float(top_params["FAR"]["value"])
+        attributes["nsbh"] = float(grouped_params["Classification"]["NSBH"]["value"]) #special mail soglia configurabile
         attributes["has_ns"] = grouped_params["Properties"]["HasNS"]["value"] 
         attributes["grace_id"] = top_params["GraceID"]["value"]
         try:
@@ -85,7 +90,8 @@ class LigoDataExtractor(TemplateDataExtractor):
         attributes["has_remnant"] = grouped_params["Properties"]["HasRemnant"]["value"]
         attributes["terrestrial"] = grouped_params["Classification"]["Terrestrial"]["value"]
 
-        attributes["significant"] = top_params["Significant"]["value"]
+        attributes["significant"] = int(top_params["Significant"]["value"])
+        attributes["event_page"] = top_params["EventPage"]["value"]
 
         return attributes
 

@@ -35,7 +35,8 @@ class TemplateDataExtractor(object):
         url = self.get_url(voevent)
         contour = self.get_contour(l, b, position_error, url)
         ligo_attributes = self.get_ligo_attributes(voevent) 
-        
+        isTest = self.is_test(voevent)
+
         seqNum = -1 #to be removed in the future couse should be set by a sql query
         tstart = 0
         tstop = 0
@@ -44,7 +45,7 @@ class TemplateDataExtractor(object):
         return Voeventdata(self.datasource, is_ste, instrument_id, trigger_id,
                     packet_type, isoTime, UTC, network_id, l, b, position_error,
                     notice, configuration, url, contour, ligo_attributes,
-                    name, seqNum, tstart, tstop, last)
+                    name, seqNum, tstart, tstop, last, isTest)
 
     def is_ste(self, voevent) -> tuple:
         """
@@ -90,6 +91,12 @@ class TemplateDataExtractor(object):
     def get_ligo_attributes(self, voevent):
         raise NotImplementedError
 
+    def is_test(self, voevent) -> tuple:
+        """
+        Return 1 if the voevent is a test notice.
+        """
+        raise NotImplementedError
+    
     def __repr__(self):
         return "class for data extraction from: %s"% (self.datasource)
 

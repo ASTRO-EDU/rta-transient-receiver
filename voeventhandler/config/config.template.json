@@ -5,12 +5,16 @@
     "Database_host":"", 
     "Database_port":"",
     "Database_name":"",
+    "disable_test_notices_seconds": 3600,
 
     "_section_2": "sender_email_information",
-    "packet_with_email_notification": ["150", "151", "152", "163", "158", "169", "173", "174"],
+    "enabled": true,
+    "packet_with_email_notification": [150],
+    "skip_ligo_not_significant": false,
+    "skip_ligo_test": false,
+    "skip_ste": false,
     "sender_email": "",
     "sender_email_password": "",
-    "email_recivers" : [],
-    "important_email_subject" : ["IMPORTANT : "],
-    "diagnostic_email_receivers" : []
+    "email_receivers" : [],
+    "developer_email_receivers" : []
 }

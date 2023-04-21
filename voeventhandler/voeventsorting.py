@@ -4,7 +4,7 @@ from voeventhandler.extractors.gcndataextractor import GncDataExtractor
 from voeventhandler.extractors.integraldataextractor import IntegralDataExtractor
 from voeventhandler.extractors.ligodataextractor import LigoDataExtractor
 
-class VoeventSorting(object):
+class VoeventSorting:
     def __init__(self) -> None:
         """
         When the class is created, the extractors are created too

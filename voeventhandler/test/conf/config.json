@@ -1,0 +1,20 @@
+{
+    "_section_1": "database connection information",
+    "Database_user": "rt", 
+    "Database_password" : "RT@pipe18@",
+    "Database_host":"127.0.0.1", 
+    "Database_port":"60306",
+    "Database_name":"rt_alert_db",
+    "disable_test_notices_seconds": 10,
+
+    "_section_2": "sender_email_information",
+    "enabled": false,
+    "packet_with_email_notification": [53,54,55,97,111,125,128,105,150,151,152,163,158,169,173,174],
+    "skip_ligo_not_significant": false,
+    "skip_ligo_test": false,
+    "skip_ste": false,
+    "sender_email": "",
+    "sender_email_password": "",
+    "email_receivers" : [],
+    "developer_email_receivers" : []
+}

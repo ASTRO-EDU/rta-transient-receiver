@@ -21,6 +21,9 @@ class GncDataExtractor(TemplateDataExtractor):
     def is_ste(self, voevent):
         return 0
     
+    def is_test(self, voevent):
+        return False
+
     def get_instrumentID_and_name(self, voevent) -> tuple:
         """
         Depending of the packet number, the instrumentID and name are set.
