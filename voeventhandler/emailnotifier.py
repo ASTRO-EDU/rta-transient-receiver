@@ -24,7 +24,7 @@ class EmailNotifier:
 
     def sendDiagnosticEmail(self, name, exception):
         if len(self.config["developer_email_receivers"]) > 0:
-            self.mail.send_email(self.mail.buildEmailMessage(self, self.config["developer_email_receivers"], f"Exception alert for {name}", f"Exception: {exception}"))
+            self.mail.send_email(self.mail.buildEmailMessage(self.config["developer_email_receivers"], f"Exception alert for {name}", f"Exception: {exception}"))
             print("Diagnostic email sent successfully!")
             return True
         print("No developer email receivers, skipping email")

@@ -16,5 +16,9 @@
     "sender_email": "",
     "sender_email_password": "",
     "email_receivers" : [],
-    "developer_email_receivers" : []
+    "developer_email_receivers" : [],
+
+    "_section_3": "brokers",
+    "kafka_client_id":"",
+    "kafka_client_secret":""
 }
