@@ -1,10 +1,11 @@
 ligo-gracedb==2.11.0
 ligo-segments==1.4.0
 ligo.skymap==1.0.7
-
 astropy==5.2.2
 astropy-healpix==0.7
 voevent-parse==1.0.3
 mysql-connector-python==8.0.33
 requests==2.28.2
-pytest==7.3.1
+pytest
+coverage 
+pytest-cov
