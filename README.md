@@ -48,7 +48,7 @@ pytest -v voeventhandler/test
 ## The configuration file
 A configuration file is mandatory to run the software. It contains the credentials to connect
 to the database, customize the behaviour of the email sender and decides how to handle the test notices.
-The file `voeventhandler/config.template.json` shows the required key-values pairs.
+The file `config.template.json` shows the required key-values pairs.
 
 ## Update dependencies
 To update the dependencies relax the packages version constraints in the `requirements.txt` file and run the following commands:
