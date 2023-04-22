@@ -4,3 +4,4 @@ __pycache__
 build/
 venv/
 **/*.egg-info/
+test_logs

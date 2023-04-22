@@ -5,6 +5,8 @@
 rta-transient-receiver is a simplified way for handling VoEvents notices provided in xml format.
 The program extract the data from the xml file, then writes the notices in a MySQL database and performs several processes for detecting a possible correlation among instruments. Then it sends an email alert to the team for further analysis.
 
+Coverage: 82%
+
 ## Installation
 The dependencies are listed in the file `requirements.lock`. It is recommended to install them into a virtual enviromnent.
 
