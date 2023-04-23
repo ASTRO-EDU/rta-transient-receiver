@@ -66,6 +66,7 @@ class Voeventdata:
         if instrument_id in [InstrumentId.LIGO.value, InstrumentId.LIGO_TEST.value]:
             body += f'bns={round(self.ligo_attributes["bns"], 10)}%\n'
             body += f'nsbh={round(self.ligo_attributes["nsbh"], 10)}%\n'
+            body += f'hasMassGap={self.ligo_attributes["hasMassGap"]}\n'
             body += '\n'
             body += f'significant={self.ligo_attributes["significant"]}\n'
             body += f'far={self.ligo_attributes["far"]}\n'
