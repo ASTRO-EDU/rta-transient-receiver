@@ -1,5 +1,5 @@
 {
-    "_section_1": "database connection information",
+    "_section_1": "Database",
     "Database_user": "", 
     "Database_password" : "",
     "Database_host":"", 
@@ -7,7 +7,7 @@
     "Database_name":"",
     "disable_test_notices_seconds": 3600,
 
-    "_section_2": "sender_email_information",
+    "_section_2": "Email sender",
     "enabled": true,
     "packet_with_email_notification": [150],
     "skip_ligo_not_significant": false,
@@ -18,7 +18,25 @@
     "email_receivers" : [],
     "developer_email_receivers" : [],
 
-    "_section_3": "brokers",
+    "_section_3": "Brokers",
     "kafka_client_id":"",
-    "kafka_client_secret":""
+    "kafka_client_secret":"",
+    "topics_to_subscribe": ["gcn.classic.voevent.AGILE_MCAL_ALERT",
+                            "gcn.classic.voevent.FERMI_GBM_FLT_POS",
+                            "gcn.classic.voevent.FERMI_LAT_MONITOR",
+                            "gcn.classic.voevent.FERMI_LAT_OFFLINE",
+                            "gcn.classic.voevent.ICECUBE_ASTROTRACK_BRONZE",
+                            "gcn.classic.voevent.ICECUBE_ASTROTRACK_GOLD",
+                            "gcn.classic.voevent.INTEGRAL_OFFLINE",
+                            "gcn.classic.voevent.INTEGRAL_REFINED",
+                            "gcn.classic.voevent.INTEGRAL_WAKEUP",
+                            "gcn.classic.voevent.LVC_INITIAL",
+                            "gcn.classic.voevent.LVC_PRELIMINARY",
+                            "gcn.classic.voevent.LVC_UPDATE",
+                            "gcn.classic.voevent.LVC_TEST",
+                            "gcn.classic.voevent.MAXI_KNOWN",
+                            "gcn.classic.voevent.MAXI_UNKNOWN",
+                            "gcn.classic.voevent.SWIFT_BAT_QL_POS",
+                            "gcn.classic.voevent.KONUS_LC"
+    ]
 }

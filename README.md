@@ -52,6 +52,29 @@ A configuration file is mandatory to run the software. It contains the credentia
 to the database, customize the behaviour of the email sender and decides how to handle the test notices.
 The file `config.template.json` shows the required key-values pairs.
 
+* Section 1: Database
+    * `database_user`: the username to connect to the database.
+    * `database_password`: the password to connect to the database.
+    * `database_host`: the host of the database.
+    * `database_port`: the port of the database.
+    * `database_name`: the name of the database.
+    * `disable_test_notices_seconds`: the number of seconds to wait before processing the test notices.
+* Section 2: Email sender
+    * `enabled`: if true the email sender is enabled.
+    * `packet_with_email_notification`: if true the email sender is enabled for the packet with the given id.
+    * `skip_ligo_not_significant`: if true the email sender is disabled for the notices with the ligo significance not significant.
+    * `skip_ligo_test`: if true the email sender is disabled for the notices with the ligo test flag.
+    * `skip_ste`: if true the email sender is disabled for the notices with the ste flag.
+    * `sender_email`: the email address of the sender.    
+    * `sender_email_password`: the password of the sender email.  
+    * `email_receivers`: the list of the email receivers.
+    * `developer_email_receivers`: an email is sent to this list if any runtime exception occurs.
+* Section 3: Brokers
+    * this section can be empty if the software is not used in a kafka environment.
+    * `kafka_client_id`: the client id to connect to the Kafka topics.
+    * `kafka_client_secret`: the client secret to connect to the Kafka topics.
+    * `topics_to_subscribe`: the list of the topics to subscribe.
+
 ## Update dependencies
 To update the dependencies relax the packages version constraints in the `requirements.txt` file and run the following commands:
 ```

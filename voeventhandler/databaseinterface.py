@@ -18,11 +18,11 @@ class DatabaseInterface:
         """
         with open(config_file) as f:
             config = json.load(f)
-            db_user = config['Database_user']
-            db_password = config['Database_password']
-            db_host = config['Database_host']
-            db_port = config['Database_port']
-            db_name = config['Database_name']
+            db_user = config['database_user']
+            db_password = config['database_password']
+            db_host = config['database_host']
+            db_port = config['database_port']
+            db_name = config['database_name']
         
         try:
             self.cnx = mysql.connector.connect(user=db_user, password=db_password,
