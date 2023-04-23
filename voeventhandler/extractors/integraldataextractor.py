@@ -19,6 +19,9 @@ class IntegralDataExtractor(TemplateDataExtractor):
         def is_ste(self, voevent):
             return 1
 
+        def is_test(self, voevent):
+            return False
+
         def get_instrumentID_and_name(self, voevent) -> tuple:
             return InstrumentId.INTEGRAL.value, "INTEGRAL"
 

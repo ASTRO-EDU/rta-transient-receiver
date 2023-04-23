@@ -19,6 +19,9 @@ class ChimeDataExtractor(TemplateDataExtractor):
     def is_ste(self, voevent):
         return 0
 
+    def is_test(self, voevent):
+        return False
+    
     def get_instrumentID_and_name(self, voevent):
         return InstrumentId.CHIME.value, "CHIME"
 

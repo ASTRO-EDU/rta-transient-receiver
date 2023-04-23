@@ -1,4 +1,5 @@
 import re
+import time
 
 class Utils:
 
@@ -41,3 +42,27 @@ class Utils:
             gw_alert_id = triggerID
         
         return gw_alert_id
+
+
+class Timer:
+    def __init__(self):
+        self.start = time.time()
+        self.end = 0
+
+    def check_elapsed(self):
+        self.end = time.time()
+        return self.end - self.start
+
+    def reset(self):
+        self.start = time.time()
+        self.end = 0
+
+    def get_time(self):
+        return self.end - self.start
+
+    def get_start_time(self):
+        return self.start
+
+    def get_end_time(self):
+        return self.end
+ 

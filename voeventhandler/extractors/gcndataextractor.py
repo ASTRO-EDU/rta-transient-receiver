@@ -21,6 +21,9 @@ class GncDataExtractor(TemplateDataExtractor):
     def is_ste(self, voevent):
         return 0
     
+    def is_test(self, voevent):
+        return False
+
     def get_instrumentID_and_name(self, voevent) -> tuple:
         """
         Depending of the packet number, the instrumentID and name are set.
@@ -61,8 +64,14 @@ class GncDataExtractor(TemplateDataExtractor):
 
     def get_triggerID(self, voevent):
         top_params = vp.get_toplevel_params(voevent)
-        return top_params["TrigID"]["value"]
-
+        if "TrigID" in top_params:
+            return top_params["TrigID"]["value"]
+        elif "Trigger_ID" in top_params:
+            return top_params["Trigger_ID"]["value"]
+        else:
+            print("[Warning] No 'TrigID' or 'Trigger_ID' found in voevent")
+            return -1
+        
     def get_packet_type(self, voevent):
         top_params = vp.get_toplevel_params(voevent)
         return top_params["Packet_Type"]["value"]

@@ -5,17 +5,20 @@
 rta-transient-receiver is a simplified way for handling VoEvents notices provided in xml format.
 The program extract the data from the xml file, then writes the notices in a MySQL database and performs several processes for detecting a possible correlation among instruments. Then it sends an email alert to the team for further analysis.
 
+Coverage: 82%
+
 ## Installation
-The dependencies are listed in the file requirement.txt. It is recommended to install them into a venv enviromnent.
+The dependencies are listed in the file `requirements.lock`. It is recommended to install them into a virtual enviromnent.
 
 For creating and install a new virtual enviroment: https://docs.python.org/3/library/venv.html
 
+### Dependencies
+The following dependencies are required (by the ligo.skymap package) to install the software:
+* GCC >= 5
+* Python >= 3.9
+
 ### Steps for installation:
-
-First of all is important fill the config.json template with the required information. 
-You can find this file in voeventhandler/config/config.json
-
-Then create a new virtual enviroment in a folder named venv whith the following command: 
+Create a new virtual enviroment in a folder named venv whith the following command: 
 ```
 python3 -m venv venv
 ```
@@ -25,39 +28,40 @@ Now activate the virtual enviroment whit the command:
 source venv/bin/activate
 ```
 
-Then install the dependency contained in the file requirements.txt in the new virtual enviroment. 
+Then install the dependency contained in the file requirements.lock in the new virtual enviroment:
 ```
-pip install -r requirements.txt
+pip install -r requirements.lock
 ```
 
-If you just wanto to use the code use the following command for excecute the file setup.py
+Then install the software:
 ```
 pip install .
 ```
 
-If you want to modify the code and test without reinstalling everytime use:
+### Tests
+After the installation you can execute the unit tests that can be found in voeventhandler/test
+Those tests use dummy voevents provided by the class `dummy_notices.py`.
+
+To run the tests suite:
 ```
-pip install -e .
+pytest -v voeventhandler/test
 ```
 
+## The configuration file
+A configuration file is mandatory to run the software. It contains the credentials to connect
+to the database, customize the behaviour of the email sender and decides how to handle the test notices.
+The file `config.template.json` shows the required key-values pairs.
 
-### Testing installation
-After the installation you can test the voevent handler with the provided test that can be found in voeventhandler/test
-Those test use dummy voevent provided by the class test_voevent
-
-For example you can test the whole code using test_VoEventHandler.py:
+## Update dependencies
+To update the dependencies relax the packages version constraints in the `requirements.txt` file and run the following commands:
 ```
-python3 voeventhandler/test/test_VoeventHandler.py
+pip install pip-tools
+pip-compile --generate-hashes --output-file=requirements.lock --resolver=backtracking requirements.txt
 ```
-This test will simulate multiple call of the main method handleVoevent conteined in the class voeventhandler whith different type of voevent.
-For each of those will extract and insert into the database the usefull data from the given xml file and notify the team sending an email. 
 
-## Important email 
-The code provides a special function for establish if a voevent is important and sholud be marked in a special way during the email notification. 
-You can find this function in the path voeventhandler/emailnotifier.py and it's name is is_important(). 
-From deafault configuration this class return False, but you can build yuor own rule creating conditional operations usign the field of the voeventdata object. For a fast look to what this field are look at the class voeventdata contained at path voeventhandler/utilis/voeventdata.py. The tag can be modified in the config file.
+## Troubleshooting
 
-## Databasem configuration
+### MySql
 For developing was used mysql 5.7.40 with the option ONLY_FULL_GROUP_BY disabled. 
 
 For checking what options are enabled use the command:

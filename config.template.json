@@ -1,0 +1,24 @@
+{
+    "_section_1": "database connection information",
+    "Database_user": "", 
+    "Database_password" : "",
+    "Database_host":"", 
+    "Database_port":"",
+    "Database_name":"",
+    "disable_test_notices_seconds": 3600,
+
+    "_section_2": "sender_email_information",
+    "enabled": true,
+    "packet_with_email_notification": [150],
+    "skip_ligo_not_significant": false,
+    "skip_ligo_test": false,
+    "skip_ste": false,
+    "sender_email": "",
+    "sender_email_password": "",
+    "email_receivers" : [],
+    "developer_email_receivers" : [],
+
+    "_section_3": "brokers",
+    "kafka_client_id":"",
+    "kafka_client_secret":""
+}
