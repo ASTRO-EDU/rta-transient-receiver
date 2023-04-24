@@ -68,12 +68,6 @@ class LigoDataExtractor(TemplateDataExtractor):
         return top_params["Instruments"]["value"]
 
     def get_ligo_attributes(self, voevent):
-        """
-        tipical LIGO attributes extracted:
-        {"bbh": 0, "bns": 0.9999947011562164, "far": 0.00000000000009110699364861295, "nsbh": 0, "has_ns": 1, "grace_id": "MS210208t",
-        "mass_gap": 0, "has_remnant": 1, "terrestrial": 0.000005298843783562432, "significant": 1}
-        """
-
         top_params = vp.get_toplevel_params(voevent)
         grouped_params = vp.get_grouped_params(voevent)
         attributes = {}
@@ -83,11 +77,8 @@ class LigoDataExtractor(TemplateDataExtractor):
         attributes["nsbh"] = float(grouped_params["Classification"]["NSBH"]["value"]) #special mail soglia configurabile
         attributes["has_ns"] = grouped_params["Properties"]["HasNS"]["value"] 
         attributes["grace_id"] = top_params["GraceID"]["value"]
-        try:
-            attributes["mass_gap"] = grouped_params["Classification"]["MassGap"]["value"]
-        except:
-            attributes["mass_gap"] = 0
         attributes["has_remnant"] = grouped_params["Properties"]["HasRemnant"]["value"]
+        attributes["has_mass_gap"] = grouped_params["Properties"]["HasMassGap"]["value"]
         attributes["terrestrial"] = grouped_params["Classification"]["Terrestrial"]["value"]
 
         attributes["significant"] = int(top_params["Significant"]["value"])
