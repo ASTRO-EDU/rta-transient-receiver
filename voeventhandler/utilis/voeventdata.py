@@ -54,7 +54,21 @@ class Voeventdata:
     def __str__(self):
         return f"InstrumentID: {self.instrument_id}, name:{self.name}, seqNum {self.seqNum}, triggerid: {self.trigger_id}, packetType: {self.packet_type},time: {self.UTC}, l: {self.l}, b: {self.b}, url: {self.url}"
     
+    def get_email_subject(self, voeventdata, email_config):
+            
+            # GENERAL SUBJECT
+            subject = f'{voeventdata.name} ID={voeventdata.trigger_id}'
 
+            # LIGO SUBJECT
+            if voeventdata.instrument_id in [InstrumentId.LIGO.value, InstrumentId.LIGO_TEST.value]:
+                if email_config["skip_ste"]:
+                    subject += " Sign."
+                else:
+                    subject += f" Sign={self.ligo_attributes['significant']}"
+                    
+                subject += f" bbh={round(self.ligo_attributes['bbh'])} bns={round(self.ligo_attributes['bns'])} nsbh={round(self.ligo_attributes['nsbh'])}"
+            
+            return subject
     
     def get_email_body(self, instrument_id, correlations=[]):
 
@@ -64,14 +78,26 @@ class Voeventdata:
             body += f"\nNotice type: {PacketType(self.packet_type).name}\n"
 
         if instrument_id in [InstrumentId.LIGO.value, InstrumentId.LIGO_TEST.value]:
-            body += f'bns={round(self.ligo_attributes["bns"], 10)}%\n'
-            body += f'nsbh={round(self.ligo_attributes["nsbh"], 10)}%\n'
-            body += f'hasMassGap={self.ligo_attributes["has_mass_gap"]}\n'
-            body += '\n'
-            body += f'significant={self.ligo_attributes["significant"]}\n'
+
+            body += f'Significant={self.ligo_attributes["significant"]}\n'
+            body += f'Sub-threshold={self.is_ste}\n'
             body += f'far={self.ligo_attributes["far"]}\n'
-            body += f'Event page={self.ligo_attributes["event_page"]}\n'
             body += '\n'
+
+            body += f'bbh={round(self.ligo_attributes["bbh"], 10)}\n'
+            body += f'bns={round(self.ligo_attributes["bns"], 10)}\n'
+            body += f'nsbh={round(self.ligo_attributes["nsbh"], 10)}\n'
+            body += f'hasMassGap={self.ligo_attributes["has_mass_gap"]}\n'
+            body += f'hasNs={self.ligo_attributes["has_ns"]}\n'
+            body += f'hasRemnant={self.ligo_attributes["has_remnant"]}\n'
+            body += f'terrestrial={self.ligo_attributes["terrestrial"]}\n'
+            body += '\n'
+
+            body += f'Event page={self.ligo_attributes["event_page"]}\n'
+
+        else:
+            body += f'Sub-threshold={self.is_ste}\n'
+
 
         if len(correlations) > 0:
             body += 'Correlations found: \n'

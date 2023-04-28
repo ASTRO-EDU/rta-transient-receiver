@@ -26,8 +26,10 @@ class LigoDataExtractor(TemplateDataExtractor):
         return super().extract(voevent)
 
     def is_ste(self, voevent):
-        return 0
-
+        top_params = vp.get_toplevel_params(voevent)
+        significant = bool(int(top_params["Significant"]["value"]))
+        return not significant
+ 
     def is_test(self, voevent):
         if "test" in voevent.attrib['role']:
             return True

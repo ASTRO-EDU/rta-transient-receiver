@@ -10,7 +10,6 @@
     "_section_2": "Email sender",
     "enabled": true,
     "packet_with_email_notification": [150],
-    "skip_ligo_not_significant": false,
     "skip_ligo_test": false,
     "skip_ste": false,
     "sender_email": "",

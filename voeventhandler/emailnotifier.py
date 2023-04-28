@@ -31,7 +31,7 @@ class EmailNotifier:
         return False
 
     def writeAlertEmail(self, voeventdata, correlations=[]):
-        subject = f'Notice alert for {voeventdata.name} TriggerID={voeventdata.trigger_id}'
+        subject = voeventdata.get_email_subject(voeventdata, self.config)
         body = f'The platform received a notice for the {voeventdata.name} event at {voeventdata.UTC} for trigger {voeventdata.trigger_id} with sequence number {voeventdata.seqNum} \n'
         body += voeventdata.get_email_body(voeventdata.instrument_id, correlations)
         return subject, body
@@ -57,7 +57,7 @@ class EmailNotifier:
             return False
 
         if voeventdata.instrument_id == InstrumentId.LIGO.value or voeventdata.instrument_id == InstrumentId.LIGO_TEST.value:
-            if not voeventdata.is_significant() and self.config["skip_ligo_not_significant"]:
+            if not voeventdata.is_significant() and self.config["skip_ste"]:
                 print("Email notification for LIGO not significant event are disabled and event is not significant, skipping email")
                 return False
 
