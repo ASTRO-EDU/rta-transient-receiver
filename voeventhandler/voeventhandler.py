@@ -54,7 +54,7 @@ class VoeventHandler:
             sent, _ = self.email_notifier.sendEmails(voeventdata, correlations)
 
         except Exception as e:
-            self.email_notifier.sendDiagnosticEmail(voevent.attrib['ivorn'], e+"\n\n\n"+str(voevent))
+            self.email_notifier.sendDiagnosticEmail(voevent.attrib['ivorn'], str(e)+"\n\n\n"+str(voevent))
             raise e
 
         return inserted, sent, voeventdata, correlations
