@@ -73,18 +73,31 @@ class LigoDataExtractor(TemplateDataExtractor):
         top_params = vp.get_toplevel_params(voevent)
         grouped_params = vp.get_grouped_params(voevent)
         attributes = {}
-        attributes["bbh"] = float(grouped_params["Classification"]["BBH"]["value"])
-        attributes["bns"] = float(grouped_params["Classification"]["BNS"]["value"]) #special mail soglia configurabile
-        attributes["far"] = float(top_params["FAR"]["value"])
-        attributes["nsbh"] = float(grouped_params["Classification"]["NSBH"]["value"]) #special mail soglia configurabile
-        attributes["has_ns"] = grouped_params["Properties"]["HasNS"]["value"] 
-        attributes["grace_id"] = top_params["GraceID"]["value"]
-        attributes["has_remnant"] = grouped_params["Properties"]["HasRemnant"]["value"]
-        attributes["has_mass_gap"] = grouped_params["Properties"]["HasMassGap"]["value"]
-        attributes["terrestrial"] = grouped_params["Classification"]["Terrestrial"]["value"]
 
+        attributes["grace_id"] = top_params["GraceID"]["value"]
+        attributes["far"] = float(top_params["FAR"]["value"])
         attributes["significant"] = int(top_params["Significant"]["value"])
         attributes["event_page"] = top_params["EventPage"]["value"]
+
+        if top_params["Group"]["value"] == "Burst":
+            attributes["bbh"] = "--"
+            attributes["bns"] = "--"
+            attributes["nsbh"] = "--"
+            attributes["has_ns"] = "--"
+            attributes["has_remnant"] = "--"
+            attributes["has_mass_gap"] = "--"
+            attributes["terrestrial"] = "--"
+        else:
+            attributes["bbh"] = float(grouped_params["Classification"]["BBH"]["value"])
+            attributes["bns"] = float(grouped_params["Classification"]["BNS"]["value"]) #special mail soglia configurabile
+            attributes["nsbh"] = float(grouped_params["Classification"]["NSBH"]["value"]) #special mail soglia configurabile
+            attributes["has_ns"] = grouped_params["Properties"]["HasNS"]["value"] 
+            attributes["has_remnant"] = grouped_params["Properties"]["HasRemnant"]["value"]
+            attributes["has_mass_gap"] = grouped_params["Properties"]["HasMassGap"]["value"]
+            attributes["terrestrial"] = grouped_params["Classification"]["Terrestrial"]["value"]
+
+            
+          
 
         return attributes
 
