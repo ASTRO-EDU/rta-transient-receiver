@@ -1,10 +1,10 @@
 {
     "_section_1": "database connection information",
-    "Database_user": "rt", 
-    "Database_password" : "RT@pipe18@",
-    "Database_host":"127.0.0.1", 
-    "Database_port":"60306",
-    "Database_name":"rt_alert_db_gcn_test",
+    "database_user": "rt", 
+    "database_password" : "RT@pipe18@",
+    "database_host":"127.0.0.1", 
+    "database_port":"60306",
+    "database_name":"rt_alert_db_gcn_test",
     "disable_test_notices_seconds": 10,
 
     "_section_2": "sender_email_information",

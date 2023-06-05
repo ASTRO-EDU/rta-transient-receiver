@@ -10,9 +10,11 @@ from voeventhandler.extractors.agiledataextractor import AgileDataExtractor
 
 class TestExtractors:
 
-    @pytest.mark.parametrize("notice_str", ["ligo_initial.xml", "ligo_preliminary.xml"], indirect=True)
+    @pytest.mark.parametrize("notice_str", ["ligo_initial.xml", "ligo_preliminary.xml", "ligo_no_model.xml"], indirect=True)
     def test_ligo(self, notice_str):
-        assert LigoDataExtractor().extract(vp.loads(notice_str))
+        voedata = LigoDataExtractor().extract(vp.loads(notice_str))
+        print(LigoDataExtractor().get_ligo_attributes(vp.loads(notice_str)))
+        assert voedata
 
     @pytest.mark.parametrize("notice_str", ["icecube_bronze.xml"], indirect=True)
     def test_gcn(self, notice_str):
