@@ -80,9 +80,9 @@ class LigoDataExtractor(TemplateDataExtractor):
         attributes["event_page"] = top_params["EventPage"]["value"]
 
         if top_params["Group"]["value"] == "Burst":
-            attributes["bbh"] = "--"
-            attributes["bns"] = "--"
-            attributes["nsbh"] = "--"
+            attributes["bbh"] = -1
+            attributes["bns"] = -1
+            attributes["nsbh"] = -1
             attributes["has_ns"] = "--"
             attributes["has_remnant"] = "--"
             attributes["has_mass_gap"] = "--"
