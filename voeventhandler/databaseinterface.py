@@ -27,7 +27,7 @@ class DatabaseInterface:
         try:
             self.cnx = mysql.connector.connect(user=db_user, password=db_password,
                             host=db_host, port=db_port, database=db_name)
-            self.cursor = self.cnx.cursor()               
+            self.cursor = self.cnx.cursor(dictionary=True)               
         except mysql.connector.Error as err:
             print(f"Error connecting to the database, using the following parameters: user={db_user}, password=***, host={db_host}, port={db_port}, database={db_name}")
             if err.errno == mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
@@ -60,7 +60,7 @@ class DatabaseInterface:
 
             receivedsciencealertid = self.cursor.lastrowid
         else:
-            receivedsciencealertid = int(check_rsa[0]) 
+            receivedsciencealertid = int(check_rsa['receivedsciencealertid']) 
 
         voevent.set_received_science_alert_id(receivedsciencealertid)
 
@@ -72,7 +72,7 @@ class DatabaseInterface:
         print(f"Executed query: {query}\nResult {result_seqnum}")
 
         try:
-            seqNum = int(result_seqnum[0]) + 1 
+            seqNum = int(result_seqnum['seqnum']) + 1 
         except:
             seqNum = 0
             
@@ -104,7 +104,7 @@ class DatabaseInterface:
         results_row = self.cursor.fetchall()
         if results_row:
             for row in results_row:
-                rsaid = row[3]
+                rsaid = row['receivedsciencealertid']
                 
                 try:
                     query = f"INSERT INTO correlations (rsaId1, rsaId2) VALUES({voeventdata.receivedsciencealertid}, {rsaid});"
