@@ -118,7 +118,7 @@ class DatabaseInterface:
             #in that case use the following query: 
             #query = f"SELECT ins.name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid, rsa.ste, rsa.time as `trigger_time` from notice n, correlations c, receivedsciencealert rsa, instrument ins WHERE n.receivedsciencealertid = c.rsaId2 AND rsa.receivedsciencealertid = n.receivedsciencealertid AND ins.instrumentid = rsa.instrumentid AND c.rsaId1 = {voeventdata.receivedsciencealertid} GROUP BY n.receivedsciencealertid, ins.name, n.noticetime;"
 
-            query = f"SELECT ins.name AS istrument_name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid"
+            query = f"SELECT ins.name AS instrument_name, max(n.seqnum),n.noticetime, n.receivedsciencealertid, rsa.triggerid,rsa.ste,rsa.time as `trigger_time` from notice n join correlations c on (n.receivedsciencealertid = c.rsaId2) join receivedsciencealert rsa on ( rsa.receivedsciencealertid = n.receivedsciencealertid) join instrument ins on (ins.instrumentid = rsa.instrumentid) where c.rsaId1 = {voeventdata.receivedsciencealertid} group by n.receivedsciencealertid"
             self.cursor.execute(query)
             results_row = self.cursor.fetchall()
 
