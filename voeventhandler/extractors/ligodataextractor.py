@@ -45,7 +45,7 @@ class LigoDataExtractor(TemplateDataExtractor):
         else:
             raise Exception(f"Voevent with packet type {packet_type} not supported")
 
-    def count_letters_at_trigger_end(string):
+    def count_letters_at_trigger_end(self,string):
         
         pattern = r'[a-zA-Z]+$'  
         matches = re.findall(pattern, string)
@@ -59,7 +59,7 @@ class LigoDataExtractor(TemplateDataExtractor):
         top_params = vp.get_toplevel_params(voevent)
         graceID = top_params["GraceID"]["value"]
 
-        letters_number = count_letters_at_trigger_end(graceID)
+        letters_number = self.count_letters_at_trigger_end(graceID)
 
         first_part_of_id = re.sub("[^0-9]", "", graceID)
         trigger_id = first_part_of_id
