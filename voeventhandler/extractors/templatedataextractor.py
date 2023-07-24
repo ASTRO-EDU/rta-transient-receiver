@@ -65,7 +65,7 @@ class TemplateDataExtractor(object):
     def get_time_from_voevent(self, voevent):
         iso_time = voevent.WhereWhen.ObsDataLocation.ObservationLocation.AstroCoords.Time.TimeInstant.ISOTime.text
         t = Time(iso_time, scale="utc")
-        return np.round(t.unix - 1072915200), t.fits
+        return t.unix - 1072915200, t.fits
 
     def get_networkID(self, voevent):
         """
